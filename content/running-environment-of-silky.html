@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Silky的多环境与数据引用 - </title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="stylesheet" href="../static/hyde.css">
+    <meta name="generator" content="" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="">
+    
+</head>
+<body class="home-template">
+<header class="masthead">
+    <div class="masthead-inner">
+        <h1></h1>
+        <p class="lead"></p>
+
+        <div class="colophon">
+            <ul class="colophon-links">
+                <li>
+                    <a href="../">首页</a>
+                </li>
+            </ul>
+            <p class="poweredby">Proudly powered by <a href="" target="_blank">m2m</a></p>
+            <p class="poweredby">Designed by <a href="https://github.com/mdo/hyde" target="_blank">andhyde.com</a></p>
+        </div>
+
+    </div>
+</header><div class="content container">
+    <div class="post">
+        <h1>Silky的多环境与数据引用</h1>
+        <span class="post-date">2015-07-17 19:22:13 +0800</span>
+
+        <ul class='toc'>  <li><a href="#section">摘要</a></li>
+  <li><a href="#section-1">数据文件</a></li>
+  <li><a href="#section-2">多环境下的数据覆盖</a></li>
+  <li><a href="#section-3">使用例子</a></li>
+  <li><a href="#section-4">在数据文件中使用函数</a></li>
+</ul>
+        
+<h2 id="section">摘要</h2>
+
+<p>Silky支持数据与实现分离，从而实现对多环境的支持，在Silky中，你可以轻松实现在开发环境与产品环境引用不同的数据。例如在开发环境中使用相对链接，在产品环境使用绝对链接。</p>
+
+<h2 id="section-1">数据文件</h2>
+
+<p>Silky的数据文件放在<code>your_project/.silky/data</code>文件夹中，一般来说，数据文件会有四个文件夹，分别是<code>normal</code>、<code>development</code>、<code>language</code>、<code>production</code>。其中<code>language</code>用于存放多国语言的数据文件，关于多国语言请参考<a href="/post/how-to-use-mutil-language-with-silky.html">在Silky中如何使用多国语言</a></p>
+
+<p>数据文件默认的数据类型为json，扩展名应该为.json。但因为<code>json</code>文件支持的数据格式过于简单，Silky支持引入<code>js</code>文件，在js中可以使用<code>module.exports={}</code>返回一个对象，这就意味你甚至可以在这里自己写函数。</p>
+
+<h2 id="section-2">多环境下的数据覆盖</h2>
+
+<p>我们以一个典型的Silky项目数据文件结构为例：</p>
+
+<pre><code>├── config.js
+└── data
+    ├── development
+    │   └── global.js
+    ├── normal
+    │   └── global.js
+    │   └── override.less
+    │   └── product.json
+    ├── production
+    │   └── global.js
+    └── language
+        ├── cn
+        │   └── default.json
+        └── en
+            └── default.json
+</code></pre>
+
+<p>多数情况下，数据文件应该放在<code>normal</code>文件夹中，假如你只有一种工作环境，那么你就不需要<code>development</code>和<code>production</code>文件夹。当前工作环境所对应文件夹中的数据文件会覆盖掉<code>normal</code>中的同名文件中的内容，理解这一点非常重要。在上面目录结构的数据文件中，如果当前的工作环境是<code>development</code>，那么<code>development/global.js</code>会合并覆盖掉<code>normal/global.js</code>中的内容。也就是说，用哪个文件合并覆盖，取决于当前的工作环境。</p>
+
+<h2 id="section-3">使用例子</h2>
+
+<p>假定我们现在除了默认环境<code>normal</code>外，还有<code>production</code>和<code>development</code>两种环境，对应的数据环境分别如下：</p>
+
+<p>默认环境<code>your_project/.silky/data/normal/global.js</code></p>
+
+<pre><code>module.exports = {
+    "title": "Silky",
+    "root": "/"
+}
+</code></pre>
+
+<p>产品环境<code>your_project/.silky/data/production/global.js</code></p>
+
+<pre><code>module.exports = {
+    "root": "http://silky.wvv8oo.com/"
+}
+</code></pre>
+
+<p>开发环境<code>your_project/.silky/data/development/global.js</code></p>
+
+<pre><code>module.exports = {
+    "root": "http://localhost:14422/"
+}
+</code></pre>
+
+<p>在<code>index.hbs</code>中我们进行引用</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Silky Example&lt;/title&gt;
+        &lt;link rel="stylesheet" href="{{global.root}css/main.css" type="text/css" charset="utf-8" /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>上述例子中，<code>{{global.root}}</code>中的<code>global</code>表示读取数据文件中的<code>global.js</code>文件的<code>root</code>键值。而当前工作环境的数据文件会对<code>normal</code>中的数据文件进行合并覆盖。如果你当前的工作环境是<code>development</code>，那么<code>{{globa.root}}</code>得到的值会是<code>http://localhost:14422/</code>。如果当前的工作环境是<code>production</code>，那么<code>{{globa.root}}</code>得到的值会是<code>http://silky.wvv8oo.com/</code></p>
+
+<h2 id="section-4">在数据文件中使用函数</h2>
+
+<p>Handlebars并不支持复杂的表达式，如果你想实现复杂的功能，你可能需要在数据文件中自己写函数了。下面我们看在示例项目中是如果通过函数实现返回一个随机数的：</p>
+
+<p><code>examples/.silky/data/normal/global.js</code></p>
+
+<pre><code>module.exports = {
+    random: function(){
+        return Math.random();
+    }
+}
+</code></pre>
+
+<p><code>index.hbs</code></p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;Silky Example&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        通过函数实现随机数：{{global.random}}
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+    </div>
+</div>
+</body>
+</html>

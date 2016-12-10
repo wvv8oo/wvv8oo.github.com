@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Silky的命令 - </title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="stylesheet" href="../static/hyde.css">
+    <meta name="generator" content="" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="">
+    
+</head>
+<body class="home-template">
+<header class="masthead">
+    <div class="masthead-inner">
+        <h1></h1>
+        <p class="lead"></p>
+
+        <div class="colophon">
+            <ul class="colophon-links">
+                <li>
+                    <a href="../">首页</a>
+                </li>
+            </ul>
+            <p class="poweredby">Proudly powered by <a href="" target="_blank">m2m</a></p>
+            <p class="poweredby">Designed by <a href="https://github.com/mdo/hyde" target="_blank">andhyde.com</a></p>
+        </div>
+
+    </div>
+</header><div class="content container">
+    <div class="post">
+        <h1>Silky的命令</h1>
+        <span class="post-date">2016-04-11 16:05:20 +0800</span>
+
+        <ul class='toc'>  <li><a href="#section">本文目标</a></li>
+  <li><a href="#section-1">如何使用</a></li>
+  <li><a href="#section-2">命令介绍</a>
+<ul>
+    <li><a href="#silky-start">silky start</a></li>
+    <li><a href="#silky-build">silky build</a></li>
+    <li><a href="#silky-init-boilerplate">silky init [boilerplate]</a>
+<ul>
+      <li><a href="#section-3">从官方样板库中创建项目</a></li>
+      <li><a href="#section-4">使用私有样板库</a></li>
+      <li><a href="#section-5">参数</a></li>
+    </ul></li>
+    <li><a href="#silky-config">silky config</a></li>
+    <li><a href="#silky-install-plugin">silky install [plugin</a></li>
+    <li><a href="#silky-uninstall-plugin">silky uninstall [plugin</a></li>
+    <li><a href="#silky-list">silky list</a></li>
+  </ul></li>
+</ul>
+        
+<h2 id="section">本文目标</h2>
+
+<ul>
+  <li>全面介绍Silky的命令</li>
+</ul>
+
+<h2 id="section-1">如何使用</h2>
+
+<ul>
+  <li>Windows系统中，推荐使用<code>git bash</code>或者<code>power shell</code></li>
+  <li>*nix系统中，打开终端(Terminal)即可输入命令</li>
+</ul>
+
+<h2 id="section-2">命令介绍</h2>
+
+<h3 id="silky-start">silky start</h3>
+
+<p>用于启动Silky，如果当前项目不是一个Silky项目，那么启动一个简易的http服务器。</p>
+
+<ul>
+  <li><code>-e</code>或者<code>--environment</code> 用于指定运行环境，默认环境为<code>development</code>。例如<code>silky start -e production</code>的运行环境为<code>production</code>，关于Silky的运行环境，请参考：<a href="running-environment-of-silky.html">Silky的运行环境介绍</a></li>
+  <li><code>-p</code>或者<code>--port</code> 用于指定http服务器的端口，默认端口为<code>14422</code>，例如<code>silky start -p 8000</code>可以指定silky的端口为<code>8000</code>，之后就可以用<code>http://localhost:8000</code>访问你的项目了</li>
+  <li><code>-l</code>或者<code>--language</code>，指定语言，默认为<code>en</code>，例如<code>silky start -l cn</code>可以指定运行语言为中文。关于多语言，请参考：<a href="how-to-use-mutil-language-with-silky.html">在项目中使用多国语言</a></li>
+  <li><code>-s</code>或者<code>--sample</code>，启动示例项目</li>
+</ul>
+
+<h3 id="silky-build">silky build</h3>
+
+<p>编译Silky项目，也可以用于编译非Silky项目。</p>
+
+<ul>
+  <li><code>-o</code>或者<code>--output</code>，指定输出目录，默认情况下会输出到<code>./build</code></li>
+  <li><code>-e</code>或者<code>--environment</code>，指定运行环境，build的默认环境为<code>production</code></li>
+  <li><code>-f</code>或者<code>--force</code>，在非Silky项目中强行编译，如果你要编译的目录是一个非Silky项目，那么需要指定<code>-f</code>参数</li>
+  <li><code>-x</code>或者<code>--extra</code>，扩展参数，此参数提供给插件用，根据具体的插件而定</li>
+  <li><code>-c</code>或者<code>--config</code>，指定配置文件，默认情况下，配置文件文件为<code>.silky/config.js</code>，如果你想单独指定一个配置文件，可以使用此参数</li>
+</ul>
+
+<h3 id="silky-init-boilerplate">silky init [boilerplate]</h3>
+
+<p>在当前目录初始化silky项目，这将会在当前目录创建一个<code>.silky</code>的文件夹，并且会复制默认的配置文件到此目录，但不会删除当前目录的任何文件。如果你不指定boilerplate，使用<code>silky init</code>会创建一个默认的项目，你也可以从官方样板库指定一个样板项目，或者使用自己的私有样板库。</p>
+
+<h4 id="section-3">从官方样板库中创建项目</h4>
+
+<p>Silky官方的样板项目库地址在 <a href="这里">https://github.com/wvv8oo/silky-boilerplate</a>，官方样板项目库会提供一些常见的项目示例，在官方样板项目库中，每一个文件夹都是一个示例项目。例如你可以通过<code>silky init default</code>来安装默认的样板项目。</p>
+
+<p>在官方样板库中，根目录中的每一个文件夹，都是一个样板项目，你只需要通过<code>sily init folder_name</code>即可安装相应的样板项目。同样，自己创建私有的样板项目也基于同样的规则。</p>
+
+<h4 id="section-4">使用私有样板库</h4>
+
+<p>某些情况下，你可能会希望使用私有的样板项目，可以通过如下步骤：</p>
+
+<ol>
+  <li>创建一个git的样板仓库，你可以把它放到github，也可以是私有的gitlab，甚至是基于文件系统的本地git。现在我假定你的私用仓库地址是<code>git@your-git-repos.com:examples/silky-boilerplate.git</code></li>
+  <li>通过命令指定私有的样板库地址，命令：<code>silky config set boilerplateRepository git@your-git-repos.com:examples/silky-boilerplate.git -g</code>，注意把示例中的地址换成你真实的仓库地址</li>
+  <li>假定你创建了一个样板项目，名为my_boilerplate，然后<code>silky init my_boilerplate</code></li>
+</ol>
+
+<h4 id="section-5">参数</h4>
+
+<ul>
+  <li><code>-f</code>或者<code>--full</code>，复制全部的示例项目</li>
+  <li><code>-p</code>或者<code>--plugin</code>，创建一个插件的示例项目</li>
+</ul>
+
+<h3 id="silky-config">silky config</h3>
+
+<p>读写silky的配置，包括全局配置和项目配置。</p>
+
+<h4 id="section-6">参数</h4>
+
+<ul>
+  <li>
+    <p><code>-g</code>或者<code>--global</code>，全局设置</p>
+  </li>
+  <li><code>silky config set [key] [value]</code>，设置某个键</li>
+  <li><code>silky config remove [key]</code>，移除某个键</li>
+  <li><code>silky config get [key]</code>，读取某个键</li>
+</ul>
+
+<h3 id="silky-install-plugin">silky install [plugin…]</h3>
+
+<p>安装Silky插件，可以指定一个插件名，也可以指定多个插件，插件名之间用空格隔开。如<code>silky install sample</code>，或者<code>silky install sample blog</code>
+注意此功能需要访问<code>github.com</code>，由于众所周知的原因，github.com在某些时候可能会无法访问，所以，你需要保持github.com的畅通。</p>
+
+<h3 id="silky-uninstall-plugin">silky uninstall [plugin…]</h3>
+
+<p>删除Silky插件，可以指定一个插件名，也可以指定多个插件，插件名之间用空格隔开。如<code>silky uninstall sample</code>，或者<code>silky uninstall sample blog</code></p>
+
+<h3 id="silky-list">silky list</h3>
+
+<p>列出已经安装的silky插件</p>
+
+    </div>
+</div>
+</body>
+</html>

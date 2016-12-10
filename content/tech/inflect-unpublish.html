@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>npm包inflect引发大面积的NPM错误 - </title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="stylesheet" href="../../static/hyde.css">
+    <meta name="generator" content="" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="">
+    
+</head>
+<body class="home-template">
+<header class="masthead">
+    <div class="masthead-inner">
+        <h1></h1>
+        <p class="lead"></p>
+
+        <div class="colophon">
+            <ul class="colophon-links">
+                <li>
+                    <a href="../../">首页</a>
+                </li>
+            </ul>
+            <p class="poweredby">Proudly powered by <a href="" target="_blank">m2m</a></p>
+            <p class="poweredby">Designed by <a href="https://github.com/mdo/hyde" target="_blank">andhyde.com</a></p>
+        </div>
+
+    </div>
+</header><div class="content container">
+    <div class="post">
+        <h1>npm包inflect引发大面积的NPM错误</h1>
+        <span class="post-date">2015-07-17 19:22:13 +0800</span>
+
+        <ul class='toc'>  <li><a href="#section">影响</a></li>
+  <li><a href="#section-1">反思</a></li>
+  <li><a href="#section-2">解决方案</a></li>
+</ul>
+        
+<blockquote>
+  <p>广告时间：如果你是一位前端工程师，你一定要尝试一下<a href="http://silky.wvv8oo.com/">Silky</a>，它会让你的前端开发更加酷。</p>
+</blockquote>
+
+<p>今天在升级Silky的时候，发现在所有的服务器都无法正常升级，尝试升级npm至2.7.4后，安装silky提示错误如下：</p>
+
+<p>````
+npm ERR! Linux 2.6.32-358.el6.x86_64
+npm ERR! argv “node” “/root/.nvm/v0.11.13/bin/npm” “install” “silky” “-g”
+npm ERR! node v0.11.13
+npm ERR! npm  v2.7.5</p>
+
+<p>npm ERR! version not found: i@0.3.2
+npm ERR!
+npm ERR! If you need help, you may report this error at:
+npm ERR!     <a href="https://github.com/npm/npm/issues">https://github.com/npm/npm/issues</a></p>
+
+<p>npm ERR! Please include the following file with any support request:
+npm ERR!     /root/npm-debug.log
+````</p>
+
+<p>经过多方排查，发现是因为<code>i@0.3.2</code>在服务器上无法找到，原因是原作者不小心在NPM服务器上删除了0.3.2版本，而根据NPM的规定，已经被unpublish的package无法被再发布，大约3小时前，作者在github的仓库上发出声明：</p>
+
+<blockquote>
+  <p>NOTE: 0.3.2 was accidentally unpublished from the server and npm doesn’t allow me to publish it back. Please upgrade to 0.3.3</p>
+</blockquote>
+
+<blockquote>
+  <p>提示：0.3.2版本被意外删除，但npm无法回滚，请更新至0.3.3</p>
+</blockquote>
+
+<h2 id="section">影响</h2>
+
+<p>因为<code>i</code>被大量的npm包引用，根据官方的最新数据，当天的下载量为56,659 ，最近一个月的下载量更是高达1,188,607，大量的第三方npm包引用了i并指定了版本为0.3.2，而0.3.2版本在服务器已经被删除，预计未来几天将会有大量的npm包将无法被正常安装。</p>
+
+<h2 id="section-1">反思</h2>
+
+<p>npm目前的机制是一旦被unpublish，该版本就被禁用，并且npm存在着海量深层引用的问题，想要查找问题并修复并不是一件很容易的事，特别是一个知名的npm包出问题之后，所带来的影响将是严重的。</p>
+
+<h2 id="section-2">解决方案</h2>
+
+<ol>
+  <li>npm官方恢复0.3.2版本</li>
+  <li>taobao等npm镜像恢复0.3.2版本</li>
+  <li>自己搭建私有镜像</li>
+  <li>其它解决方案，我还在处理这个事，有解决方案第一时间放出</li>
+</ol>
+
+    </div>
+</div>
+</body>
+</html>

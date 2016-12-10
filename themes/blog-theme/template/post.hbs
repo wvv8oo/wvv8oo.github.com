@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{import "./module/head"}}
+    <title>{{$$.plugin.post.title}} - {{$$.plugin.blog.title}}</title>
+</head>
+
+<body>
+
+<div class="container">
+    {{import "./module/header"}}
+
+    <div class="content container">
+        <div class="post">
+            <h1>{{$$.plugin.post.title}}</h1>
+            <span class="post-date">{{date $$.plugin.post.publish_date 'YYYY-MM-DD hh:mm'}}</span>
+            {{{plugin_markdown $$.plugin.post.content}}}
+        </div>
+    </div>
+    {{import "./module/footer"}}
+</div>
+</body>
+</html>

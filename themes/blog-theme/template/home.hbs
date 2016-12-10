@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{import "./module/head"}}
+    <title>{{$$.plugin.blog.title}}</title>
+</head>
+
+<body>
+
+<div class="container">
+    {{import "./module/header"}}
+
+    <!-- Jumbotron -->
+    <div class="jumbotron" style="border-bottom: 1px solid #EEE;">
+        <h1>{{$$.plugin.blog.description}}</h1>
+        <p class="lead">Silky是一个前端模块化开发与构建工具，自带HTTP服务器，支持多环境，支持多国语言，支持代理与路由转发，自动化编译构建，实时编译CoffeeScript和Less，支持插件扩展</p>
+        <p><a role="button" href="/post/getting-started-with-silky.html" class="btn btn-lg btn-success">新手入门指南</a></p>
+    </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>支持多环境</h2>
+            <p>前端项目的开发环境与产品环境往往不一致，本地可能会用相对路径，而产品环境可能会使用绝对路径，Silky允许你在多种环境自由切换</p>
+        </div>
+        <div class="col-lg-4">
+            <h2>实时编译</h2>
+            <p>当你访问js或者css文件的时候，如果静态访问存在则直接输出到浏览器。否则Silky会自动查找是否有对应的coffee/less，实时编译输出到浏览器</p>
+        </div>
+        <div class="col-lg-4">
+            <h2>模块化开发</h2>
+            <p>
+                模块化开发的好处不言而喻，可以避免大量的重复性劳动，使用项目代码更清晰。Silky支持前端模块化开发，例如你可以将header和footer当作模块引用进来
+            </p>
+            <p><a class="btn btn-success" href="/post/template-of-silky.html" role="button">查看更多 &raquo;</a></p>
+        </div>
+    </div>
+
+    <div class="row" style="border-top: 1px solid #eee">
+        <div class="col-lg-4">
+            <h2>支持代理与路由转发</h2>
+            <p>支持代理与路由转发就意味着我们可以完全脱离后端进行开发，跨域的问题也将不是问题。甚至我们可以利用路由转发的功能来实现静态的假数据。</p>
+        </div>
+        <div class="col-lg-4">
+            <h2>一键编译构建</h2>
+            <p>只需要一个命令<code>silky build</code>，你就可以实现项目的编译与构建，搭配Silky的插件，你甚至可以实现自动化部署</p>
+        </div>
+        <div class="col-lg-4">
+            <h2>支持插件</h2>
+            <p>Silky无法覆盖到所有项目的情况，但通过插件，我们可以拥有无限种可能。你可以通过插件生成假数据，也可以通过插件转换Markdown为在线文档或者博客。</p>
+            <p><a class="btn btn-primary" href="/index.html" role="button">插件开发 &raquo;</a></p>
+        </div>
+    </div>
+
+    <!-- Site footer -->
+    {{import "./module/footer"}}
+</div> <!-- /container -->
+
+</body>
+</html>

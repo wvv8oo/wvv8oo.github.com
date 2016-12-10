@@ -1,0 +1,8 @@
+blog:
+  title: 'Silky Blog'
+  host: 'http://silky.js.org'
+  theme: 'hyde1'
+# 脚本
+scripts:
+  end_head: '<script>alert("abc")</script>'
+  end_body: ''

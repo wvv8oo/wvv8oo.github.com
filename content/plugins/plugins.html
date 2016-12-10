@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Silky插件介绍 - </title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="stylesheet" href="../../static/hyde.css">
+    <meta name="generator" content="" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="">
+    
+</head>
+<body class="home-template">
+<header class="masthead">
+    <div class="masthead-inner">
+        <h1></h1>
+        <p class="lead"></p>
+
+        <div class="colophon">
+            <ul class="colophon-links">
+                <li>
+                    <a href="../../">首页</a>
+                </li>
+            </ul>
+            <p class="poweredby">Proudly powered by <a href="" target="_blank">m2m</a></p>
+            <p class="poweredby">Designed by <a href="https://github.com/mdo/hyde" target="_blank">andhyde.com</a></p>
+        </div>
+
+    </div>
+</header><div class="content container">
+    <div class="post">
+        <h1>Silky插件介绍</h1>
+        <span class="post-date">2015-07-17 19:22:13 +0800</span>
+
+        <ul class='toc'>  <li><a href="#section">插件的安装与使用</a></li>
+  <li><a href="#tv">芒果TV专用插件</a>
+<ul>
+    <li><a href="#honey-preview">honey-preview</a></li>
+    <li><a href="#honey">honey</a></li>
+    <li><a href="#bhf">bhf</a></li>
+  </ul></li>
+  <li><a href="#section-1">常用插件列表</a></li>
+</ul>
+        
+<h2 id="section">插件的安装与使用</h2>
+
+<ul>
+  <li>从官方库安装插件，使用<code>silky install plugin_name</code>即可安装</li>
+  <li>在你的项目中，需要添加这个插件的引用，用编译器打开项目中的<code>config.js</code>，找到<code>plugins</code>键，增加你将要使用的插件。常规的配置，只需要在<code>plugins</code>增加插件名称键即可，如：<code>"pluginName": {}</code></li>
+  <li>如果你希望使用自定义的项目库，可以修改全局配置中的custom.pluginRepository键，也可以使用命令：<code>silky config set pluginRepository your_repository_address</code></li>
+</ul>
+
+<p>示例：</p>
+
+<pre><code>"plugins": {
+    //在当前项目中，增加markdown-blog这个插件
+    "markdown-blog": {
+        //如果你希望截入本地插件，则可以在source中指定插件的绝对路径
+        //"source": "/path/to/markdown-blog"
+        //更多的参数配置，请参考具体插件的要求
+    }
+}
+</code></pre>
+
+<h2 id="tv">芒果TV专用插件</h2>
+
+<h3 id="honey-preview">honey-preview</h3>
+
+<p>构建项目后，将项目发布到预览服务器</p>
+
+<pre><code>"plugins": {
+    "honey": {
+        //可选，如果项目名称与目录名称不一致，可以在这里指定项目名
+        "projectName": "your_project_name",
+        //可选，指定上传的服务器，也可以使用绝对路径，如http://192.168.1.1:8000
+        //注意，配置文件指定的优先级低于命令行指定
+        "server": "108"
+    }
+}
+</code></pre>
+
+<p>在命令行也可以指定上传的服务器 <code>silky build -x 108</code></p>
+
+<h3 id="honey">honey</h3>
+
+<p>处理honey的路径与合并的问题，以及其它honey相关的处理，常规配置即可。</p>
+
+<h3 id="bhf">bhf</h3>
+
+<p>处理bhf的代码合并，常规配置即可。</p>
+
+<h2 id="section-1">常用插件列表</h2>
+
+<h3 id="markdown-blog">markdown-blog</h3>
+
+<p>根据markdown自动生成技术文档或者博客，更多请参考<a href="/post/markdown-blog-for-plugin-of-silky.html">这里</a></p>
+
+    </div>
+</div>
+</body>
+</html>
